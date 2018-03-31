@@ -17,12 +17,12 @@ class PatreonProvider implements Provider
         $this->connector = $connector;
     }
 
-    public static function buildPatreonApiUrl(string $url)
+    public static function buildPatreonApiUrl(string $url): string
     {
         return self::PATREON_API_URL . $url;
     }
 
-    public function getConnector()
+    public function getConnector(): Connector
     {
         return $this->connector;
     }
