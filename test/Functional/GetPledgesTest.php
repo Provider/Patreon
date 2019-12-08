@@ -11,7 +11,7 @@ use ScriptFUSIONTest\Porter\Provider\Patreon\FixtureFactory;
 
 final class GetPledgesTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         /** @var PledgeRecords $pledges */
         $pledges = FixtureFactory::createPorter()->import(new ImportSpecification(new GetPledges(1405455)))
