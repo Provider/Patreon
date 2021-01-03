@@ -8,13 +8,13 @@
     }
   ],
   "require": {
-    "php": "^7.1",
+    "php": "^7.2",
     "ext-json": "*",
-    "connectors/http": "^3",
+    "connectors/http": "^4",
     "scriptfusion/porter": "^5"
   },
   "require-dev": {
-    "mockery/mockery": "^1",
+    "mockery/mockery": "^1.3.3",
     "phpunit/phpunit": "^6.5"
   },
   "autoload": {
