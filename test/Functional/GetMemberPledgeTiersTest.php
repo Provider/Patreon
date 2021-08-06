@@ -23,6 +23,7 @@ final class GetMemberPledgeTiersTest extends TestCase
 
         $firstTier = $tiers->current();
 
+        self::assertArrayHasKey('id', $firstTier);
         self::assertArrayHasKey('attributes', $firstTier);
         self::assertIsArray($attributes = $firstTier['attributes']);
         self::assertArrayHasKey('title', $attributes);
@@ -39,8 +40,10 @@ final class GetMemberPledgeTiersTest extends TestCase
         $firstTier = $tiers->current();
 
         self::assertIsArray($firstTier);
-        self::assertCount(1, $firstTier);
-        self::assertNotEmpty($firstTier[0]);
+        self::assertArrayHasKey('id', $firstTier);
+        self::assertNotEmpty($firstTier['id']);
+        self::assertArrayHasKey('title', $firstTier);
+        self::assertNotEmpty($firstTier['title']);
     }
 
     public function testHasNoPledge(): void
@@ -64,7 +67,8 @@ final class GetMemberPledgeTiersTest extends TestCase
         $firstTier = $tiers->current();
 
         self::assertIsArray($firstTier);
-        self::assertCount(1, $firstTier);
-        self::assertNull($firstTier[0]);
+        self::assertCount(0, $firstTier);
+        self::assertArrayNotHasKey('id', $firstTier);
+        self::assertArrayNotHasKey('title', $firstTier);
     }
 }
