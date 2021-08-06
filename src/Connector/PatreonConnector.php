@@ -12,7 +12,7 @@ class PatreonConnector extends HttpConnector
 {
     private $apiKey;
 
-    public function __construct(string $apiKey)
+    public function __construct(string $apiKey = null)
     {
         parent::__construct();
 
@@ -28,5 +28,10 @@ class PatreonConnector extends HttpConnector
         $source->addHeader("Authorization: Bearer $this->apiKey");
 
         return parent::fetch($source);
+    }
+
+    public function setApiKey(string $apiKey): void
+    {
+        $this->apiKey = $apiKey;
     }
 }
