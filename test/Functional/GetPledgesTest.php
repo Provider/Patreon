@@ -23,7 +23,7 @@ final class GetPledgesTest extends TestCase
         self::assertSame('pledge', $firstPledge['type']);
 
         self::assertArrayHasKey('attributes', $firstPledge);
-        self::assertInternalType('array', $attributes = $firstPledge['attributes']);
+        self::assertIsArray($attributes = $firstPledge['attributes']);
         self::assertNotEmpty($attributes);
 
         self::assertArrayHasKey('relationships', $firstPledge);
