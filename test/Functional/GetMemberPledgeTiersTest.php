@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace ScriptFUSIONTest\Porter\Provider\Patreon\Functional;
 
 use PHPUnit\Framework\TestCase;
+use ScriptFUSION\Porter\Provider\Patreon\Mapping\MemberPledgeTierMapping;
 use ScriptFUSION\Porter\Provider\Patreon\Resource\GetMemberPledgeTiers;
 use ScriptFUSION\Porter\Specification\ImportSpecification;
+use ScriptFUSION\Porter\Transform\Mapping\MappingTransformer;
 use ScriptFUSIONTest\Porter\Provider\Patreon\FixtureFactory;
 
 /**
@@ -27,6 +29,20 @@ final class GetMemberPledgeTiersTest extends TestCase
         self::assertNotEmpty($attributes['title']);
     }
 
+    public function testHasPledgeWithMapping(): void
+    {
+        $tiers = FixtureFactory::createPorterV2()->import(
+            (new ImportSpecification(new GetMemberPledgeTiers('d4c43409-8b36-41e4-ae3f-7bcbe1e84c3f')))
+                ->addTransformer(new MappingTransformer(new MemberPledgeTierMapping()))
+        );
+
+        $firstTier = $tiers->current();
+
+        self::assertIsArray($firstTier);
+        self::assertCount(1, $firstTier);
+        self::assertNotEmpty($firstTier[0]);
+    }
+
     public function testHasNoPledge(): void
     {
         $tiers = FixtureFactory::createPorterV2()->import(
@@ -36,5 +52,19 @@ final class GetMemberPledgeTiersTest extends TestCase
         $firstTier = $tiers->current();
 
         self::assertEmpty($firstTier);
+    }
+
+    public function testHasNoPledgeWithMapping(): void
+    {
+        $tiers = FixtureFactory::createPorterV2()->import(
+            (new ImportSpecification(new GetMemberPledgeTiers('b892e613-114a-4e97-be5c-5c79446a21cc')))
+                ->addTransformer(new MappingTransformer(new MemberPledgeTierMapping()))
+        );
+
+        $firstTier = $tiers->current();
+
+        self::assertIsArray($firstTier);
+        self::assertCount(1, $firstTier);
+        self::assertNull($firstTier[0]);
     }
 }
