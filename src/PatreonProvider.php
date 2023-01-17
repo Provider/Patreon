@@ -10,11 +10,8 @@ class PatreonProvider implements Provider
 {
     private const PATREON_API_URL = 'https://www.patreon.com/api/oauth2/api/';
 
-    private $connector;
-
-    public function __construct(Connector $connector)
+    public function __construct(private readonly Connector $connector)
     {
-        $this->connector = $connector;
     }
 
     public static function buildPatreonApiUrl(string $url): string

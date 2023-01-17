@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace ScriptFUSIONTest\Porter\Provider\Patreon\Functional;
 
 use PHPUnit\Framework\TestCase;
+use ScriptFUSION\Porter\Import\Import;
 use ScriptFUSION\Porter\Provider\Patreon\Mapping\MemberPledgeTierMapping;
 use ScriptFUSION\Porter\Provider\Patreon\Resource\GetMemberPledgeTiers;
-use ScriptFUSION\Porter\Specification\ImportSpecification;
 use ScriptFUSION\Porter\Transform\Mapping\MappingTransformer;
 use ScriptFUSIONTest\Porter\Provider\Patreon\FixtureFactory;
 
@@ -18,7 +18,7 @@ final class GetMemberPledgeTiersTest extends TestCase
     public function testHasPledge(): void
     {
         $tiers = FixtureFactory::createPorterV2()->import(
-            new ImportSpecification(new GetMemberPledgeTiers('d4c43409-8b36-41e4-ae3f-7bcbe1e84c3f'))
+            new Import(new GetMemberPledgeTiers('d4c43409-8b36-41e4-ae3f-7bcbe1e84c3f'))
         );
 
         $firstTier = $tiers->current();
@@ -33,7 +33,7 @@ final class GetMemberPledgeTiersTest extends TestCase
     public function testHasPledgeWithMapping(): void
     {
         $tiers = FixtureFactory::createPorterV2()->import(
-            (new ImportSpecification(new GetMemberPledgeTiers('d4c43409-8b36-41e4-ae3f-7bcbe1e84c3f')))
+            (new Import(new GetMemberPledgeTiers('d4c43409-8b36-41e4-ae3f-7bcbe1e84c3f')))
                 ->addTransformer(new MappingTransformer(new MemberPledgeTierMapping()))
         );
 
@@ -49,7 +49,7 @@ final class GetMemberPledgeTiersTest extends TestCase
     public function testHasNoPledge(): void
     {
         $tiers = FixtureFactory::createPorterV2()->import(
-            new ImportSpecification(new GetMemberPledgeTiers('b892e613-114a-4e97-be5c-5c79446a21cc'))
+            new Import(new GetMemberPledgeTiers('b892e613-114a-4e97-be5c-5c79446a21cc'))
         );
 
         $firstTier = $tiers->current();
@@ -60,7 +60,7 @@ final class GetMemberPledgeTiersTest extends TestCase
     public function testHasNoPledgeWithMapping(): void
     {
         $tiers = FixtureFactory::createPorterV2()->import(
-            (new ImportSpecification(new GetMemberPledgeTiers('b892e613-114a-4e97-be5c-5c79446a21cc')))
+            (new Import(new GetMemberPledgeTiers('b892e613-114a-4e97-be5c-5c79446a21cc')))
                 ->addTransformer(new MappingTransformer(new MemberPledgeTierMapping()))
         );
 

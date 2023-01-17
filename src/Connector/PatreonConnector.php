@@ -10,13 +10,9 @@ use ScriptFUSION\Porter\Net\Http\HttpResponse;
 
 class PatreonConnector extends HttpConnector
 {
-    private $apiKey;
-
-    public function __construct(string $apiKey = null)
+    public function __construct(private ?string $apiKey = null)
     {
         parent::__construct();
-
-        $this->apiKey = $apiKey;
     }
 
     public function fetch(DataSource $source): HttpResponse
@@ -25,7 +21,7 @@ class PatreonConnector extends HttpConnector
             throw new \RuntimeException('Source must be of type: HttpDataSource.');
         }
 
-        $source->addHeader("Authorization: Bearer $this->apiKey");
+        $source->addHeader('authorization', "Bearer $this->apiKey");
 
         return parent::fetch($source);
     }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace ScriptFUSIONTest\Porter\Provider\Patreon\Functional;
 
 use PHPUnit\Framework\TestCase;
+use ScriptFUSION\Porter\Import\Import;
 use ScriptFUSION\Porter\Provider\Patreon\Collection\PledgeRecords;
 use ScriptFUSION\Porter\Provider\Patreon\Resource\GetPledges;
-use ScriptFUSION\Porter\Specification\ImportSpecification;
 use ScriptFUSIONTest\Porter\Provider\Patreon\FixtureFactory;
 
 final class GetPledgesTest extends TestCase
@@ -14,7 +14,7 @@ final class GetPledgesTest extends TestCase
     public function test(): void
     {
         /** @var PledgeRecords $pledges */
-        $pledges = FixtureFactory::createPorter()->import(new ImportSpecification(new GetPledges(1405455)))
+        $pledges = FixtureFactory::createPorter()->import(new Import(new GetPledges(1405455)))
             ->findFirstCollection();
 
         $firstPledge = $pledges->current();

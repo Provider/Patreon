@@ -9,13 +9,10 @@ use ScriptFUSION\Porter\Provider\Patreon\Collection\PledgeRecords;
 use ScriptFUSION\Porter\Provider\Patreon\PatreonProvider;
 use ScriptFUSION\Porter\Provider\Resource\ProviderResource;
 
-class GetPledges implements ProviderResource
+final class GetPledges implements ProviderResource
 {
-    private $campaignId;
-
-    public function __construct(int $campaignId)
+    public function __construct(private readonly int $campaignId)
     {
-        $this->campaignId = $campaignId;
     }
 
     public function getProviderClassName(): string
